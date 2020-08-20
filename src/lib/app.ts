@@ -1,10 +1,8 @@
 import { extractNecessaryInfo } from "./calculate";
 import { writeFileSync } from "fs";
-import * as dotenv from "dotenv";
+import { config } from "./config";
 
-dotenv.config({ path: "./config.env" });
-const threshold = parseInt(process.env.SALARY_THRESHOLD || "1000", 10);
-console.log(`Threshold to exclude salary for total without salary: ${threshold}`);
+console.log(`Threshold to exclude salary for total without salary: ${config.threshold}`);
 const totalKey = "total";
 const withoutSalaryKey = "totalWithoutSalary";
 const expenseKey = "expense";
@@ -32,7 +30,7 @@ payments.forEach((value) => {
     }
     update(value.company);
     update(totalKey);
-    update(withoutSalaryKey, threshold);
+    update(withoutSalaryKey, config.threshold);
     update(expenseKey, 0);
 
     months.set(dateKey, map);

@@ -14,14 +14,15 @@
     "node": ">= 8.17.0"
   },
   "scripts": {
-    "build": "npx tsc && cp ./lib/config.env dist/ && cp ./data.csv dist/",
+    "build": "npx tsc && cp ./data.csv dist/",
     "clean": "rm -rf ./dist",
     "start": "cd dist && node app.js"
   },
   "keywords": [
     "csv",
     "parse",
-    "parser"
+    "parser",
+    "sparkasse"
   ],
   "author": "yuto-yuto",
   "license": "MIT",
@@ -30,7 +31,5 @@
     "ts-node": "^8.10.2",
     "typescript": "^3.9.7"
   },
-  "dependencies": {
-    "dotenv": "^8.2.0"
-  }
+  "dependencies": {}
 }
