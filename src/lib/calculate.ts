@@ -11,8 +11,10 @@ const dateKey = '"Buchungstag"';
 const companyKey = '"Beguenstigter/Zahlungspflichtiger"';
 
 export function extractNecessaryInfo(): Payment[] {
-    // const filePath = "/src/data.csv";
     const filePath = path.join(__dirname, "data.csv");
+    if (!fs.existsSync(filePath)) {
+        console.log("Place data.csv in the same directory.")
+    }
     const data = fs.readFileSync(filePath, { encoding: "utf8" });
     const rows = data.split("\n");
     const delimiter = ";"
