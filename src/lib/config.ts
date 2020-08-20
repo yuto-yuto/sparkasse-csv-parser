@@ -1,3 +1,3 @@
 export const config = {
-    threshold: 1000
+    threshold: 2500
 }
