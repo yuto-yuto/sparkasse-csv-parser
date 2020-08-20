@@ -1,5 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
+import { exit } from "process";
 
 interface Payment {
     cost: number;
@@ -13,7 +14,8 @@ const companyKey = '"Beguenstigter/Zahlungspflichtiger"';
 export function extractNecessaryInfo(): Payment[] {
     const filePath = path.join(__dirname, "data.csv");
     if (!fs.existsSync(filePath)) {
-        console.log("Place data.csv in the same directory.")
+        console.log("Place data.csv in the same directory.");
+        exit();
     }
     const data = fs.readFileSync(filePath, { encoding: "utf8" });
     const rows = data.split("\n");
