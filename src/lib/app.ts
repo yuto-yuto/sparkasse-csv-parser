@@ -2,7 +2,7 @@ import { extractNecessaryInfo } from "./calculate";
 import { writeFileSync } from "fs";
 import * as dotenv from "dotenv";
 
-dotenv.config();
+dotenv.config({ path: "./config.env" });
 const totalKey = "total";
 const withoutSalaryKey = "totalWithoutSalary";
 const expenseKey = "expense";
@@ -23,7 +23,7 @@ payments.forEach((value) => {
 
     const update = (key: string, threshold?: number) => {
         let current = map.get(key) || 0;
-        if ((threshold === undefined) || (threshold && value.cost < threshold)) {
+        if ((threshold === undefined) || (threshold !== undefined && value.cost < threshold)) {
             current += value.cost;
         }
         map.set(key, current);
@@ -31,6 +31,7 @@ payments.forEach((value) => {
     update(value.company);
     update(totalKey);
     const threshold = parseInt(process.env.SALARY_THRESHOLD || "1000", 10)
+    console.log(threshold)
     update(withoutSalaryKey, threshold);
     update(expenseKey, 0);
 
@@ -49,6 +50,7 @@ sorted.forEach((value) => {
     const totalWithoutSalary = value[1].get(withoutSalaryKey);
     value[1].delete(totalKey);
     value[1].delete(expenseKey);
+    value[1].delete(withoutSalaryKey);
     const sortedCompanies = Array.from(value[1]).sort((a, b) => {
         return a[1] - b[1];
     });
@@ -56,7 +58,7 @@ sorted.forEach((value) => {
     const monthString = `${value[0]}: \n`;
     const totalString = `\t${total!.toFixed(2)}\t: total\n`
         + `\t${expense!.toFixed(2)}\t: expense\n`;
-    const withoutSalaryString = `\t${totalWithoutSalary?.toFixed(2)}: total without salary\n`;
+    const withoutSalaryString = `\t${totalWithoutSalary?.toFixed(2)}\t: total without salary\n`;
     detail += monthString + totalString + withoutSalaryString;
     simple += monthString + totalString + withoutSalaryString;
     sortedCompanies.forEach((entry) => {
