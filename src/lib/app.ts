@@ -7,7 +7,7 @@ const totalKey = "total";
 const withoutSalaryKey = "totalWithoutSalary";
 const expenseKey = "expense";
 const payments = extractNecessaryInfo()
-// console.log(payments.filter((value) => value.date.year === "19" && value.date.month === "05"))
+
 const months = new Map<number, Map<string, number>>();
 
 const retrieveMap = (currentKey: number) => {
@@ -33,20 +33,6 @@ payments.forEach((value) => {
     const threshold = parseInt(process.env.SALARY_THRESHOLD || "1000", 10)
     update(withoutSalaryKey, threshold);
     update(expenseKey, 0);
-    // const companyTotal = (map.get(value.company) || 0) + value.cost;
-    // map.set(value.company, companyTotal);
-
-    // const totalCost = (map.get(totalKey) || 0) + value.cost;
-    // map.set(totalKey, totalCost);
-
-    // const totalWithoutSalary = (map.get(withoutSalaryKey) || 0) + value.cost;
-    // map.set(withoutSalaryKey, totalWithoutSalary)
-
-    // let expenseTotal = map.get(expenseKey) || 0;
-    // if (value.cost < 0) {
-    //     expenseTotal += value.cost;
-    // }
-    // map.set(expenseKey, expenseTotal);
 
     months.set(dateKey, map);
 });
